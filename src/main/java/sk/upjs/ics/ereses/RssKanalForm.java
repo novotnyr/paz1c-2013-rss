@@ -11,6 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import net.miginfocom.swing.MigLayout;
 
 public class RssKanalForm extends JDialog {
     private JLabel lblNazov = new JLabel("Názov:");
@@ -27,15 +28,16 @@ public class RssKanalForm extends JDialog {
     public RssKanalForm(Frame vlastnik) {
         super(vlastnik, true);
 
-        setLayout(new GridLayout(0, 2));
+        //setLayout(new GridLayout(0, 2));
+        setLayout(new MigLayout("", "[][grow]", ""));
         
         add(lblNazov);
-        add(txtNazov);
+        add(txtNazov, "grow, wrap");
         add(lblUrl);
-        add(txtUrl);
+        add(txtUrl, "grow, wrap");
         
-        add(btnOk);
-        add(btnCancel);
+        add(btnOk, "tag ok, skip 1, split 2");
+        add(btnCancel, "tag cancel");
         
         pack();
         
@@ -53,7 +55,7 @@ public class RssKanalForm extends JDialog {
         });
         
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+        //setResizable(false);
     
     }
     

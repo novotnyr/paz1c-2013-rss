@@ -28,9 +28,9 @@ public class MainForm extends JFrame {
 
     private JList lstPolozky;
     private JSplitPane oddelovac;
-    private JTextArea txtDescription;
+    //private JTextArea txtDescription;
     private final JScrollPane lstPolozkyScrollPane;
-    private final JScrollPane txtDescriptionScrollPane;
+    //private final JScrollPane txtDescriptionScrollPane;
     
     private JList lstKanaly = new JList();
     
@@ -39,6 +39,8 @@ public class MainForm extends JFrame {
     private JPanel panKanaly = new JPanel();
     
     private JButton btnPridatKanal = new JButton(" + ");
+    
+    private final RssPolozkaPanel rssPolozkaPanel = new RssPolozkaPanel();
 
     public MainForm() throws MalformedURLException {
         lstKanaly.setListData(rssService.dajKanaly().toArray());
@@ -85,21 +87,14 @@ public class MainForm extends JFrame {
                     return;
                 }
                 SyndEntry polozka = (SyndEntry) lstPolozky.getSelectedValue();
-                txtDescription.setText(polozka.getDescription().getValue());
+                rssPolozkaPanel.setPolozka(polozka);
+                //TODO
+                //txtDescription.setText(polozka.getDescription().getValue());
             }
         });
         lstPolozkyScrollPane = new JScrollPane(lstPolozky);
         
-        txtDescription = new JTextArea();
-        txtDescription.setLineWrap(true);
-        txtDescription.setWrapStyleWord(true);
-        txtDescription.setPreferredSize(new Dimension(200, 200));
-        
-        txtDescriptionScrollPane = new JScrollPane(txtDescription);
-
-        
-        
-        oddelovac = new JSplitPane(JSplitPane.VERTICAL_SPLIT, lstPolozkyScrollPane, txtDescriptionScrollPane);
+        oddelovac = new JSplitPane(JSplitPane.VERTICAL_SPLIT, lstPolozkyScrollPane, rssPolozkaPanel);
 
         add(oddelovac);
 
